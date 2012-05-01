@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__)+'/../bootstrap'
+require 'twitter'
+
+Twitter.configure do |config|
+  config.consumer_key = @@conf['twitter']['consumer_key']
+  config.consumer_secret = @@conf['twitter']['consumer_secret']
+  config.oauth_token = @@conf['twitter']['access_token']
+  config.oauth_token_secret = @@conf['twitter']['access_secret']
+end
+
+puts Twitter.rate_limit_status.remaining_hits
