@@ -8,6 +8,7 @@ class User
   property :screen_name, String, :required => true, :length => 0..256
   property :name, String, :required => true, :length => 0..256
   property :description, String, :required => true, :length => 0..1024
+  property :last_checked_at, Time, :default => lambda{ Time.now }
 
   def initialize(user)
     unless user.kind_of? Twitter::User
