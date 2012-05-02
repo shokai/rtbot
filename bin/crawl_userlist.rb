@@ -9,12 +9,26 @@ rescue => e
   exit 1
 end
 
-ids.each do |id|
-  unless User.exists? id
-    u = User.new(:user_id => id)
-    u.save
-    puts "add #{u.user_id}"
-  else
-    puts "skip #{id}"
+ids.each_with_index do |id, i|
+  begin
+    unless User.exists? id
+      _u = Twitter::user(id)
+      u = User.new(
+                   :user_id => id,
+                   :screen_name => _u.screen_name,
+                   :name => _u.name,
+                   :description => _u.description
+                   )
+      u.save
+      puts "(#{i}/#{ids.size}) add #{u}"
+    else
+      puts "(#{i}/#{ids.size}) skip #{id}"
+      next
+    end
+  rescue => e
+    STDERR.puts "(#{i}/#{ids.size}) Error at user_id : #{id}"
+    STDERR.puts e
+    exit 1 if e.message =~ /rate limit/i
   end
+  sleep 2
 end
