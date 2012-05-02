@@ -10,6 +10,7 @@ rescue => e
 end
 
 ids.each_with_index do |id, i|
+  i += 1
   begin
     unless User.exists? id
       u = User.new Twitter::user(id)
