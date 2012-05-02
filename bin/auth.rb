@@ -1,22 +1,14 @@
 #!/usr/bin/env ruby
-require 'rubygems'
-require 'oauth'
-require 'yaml'
+require File.dirname(__FILE__)+'/../bootstrap'
+Bootstrap.init
 
-begin
-  @@conf = YAML::load open(File.dirname(__FILE__) + '/../config.yml')
-rescue
-  STDERR.puts 'config.yaml load error'
-  exit 1
-end
+consumer = OAuth::Consumer.new(
+                               Bootstrap.conf['twitter']['consumer_key'],
+                               Bootstrap.conf['twitter']['consumer_secret'],
+                               :site => "http://twitter.com/"
+                               )
 
-
-consumer = OAuth::Consumer.new(@@conf['twitter']['consumer_key'], @@conf['twitter']['consumer_secret'],
-                               :site => "http://twitter.com/")
-
-request_token = consumer.get_request_token(
-                                           #:oauth_callback => "http://example.com"
-                                           )
+request_token = consumer.get_request_token
 
 puts 'please access following URL and approve'
 puts request_token.authorize_url
@@ -26,12 +18,13 @@ oauth_verifier = gets.chomp.strip
 
 access_token = request_token.get_access_token(:oauth_verifier => oauth_verifier)
 
-@@conf['twitter']['access_token'] = access_token.token
-@@conf['twitter']['access_secret'] = access_token.secret
+conf = Bootstrap.conf
+conf['twitter']['access_token'] = access_token.token
+conf['twitter']['access_secret'] = access_token.secret
 
 begin
-  open(File.dirname(__FILE__) + '/../config.yml', 'w+'){|f|
-    f.write @@conf.to_yaml
+  Bootstrap.open_conf_file('w+'){|f|
+    f.write conf.to_yaml
   }
 rescue => e
   puts '-'*5
