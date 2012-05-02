@@ -12,14 +12,9 @@ end
 ids.each_with_index do |id, i|
   begin
     unless User.exists? id
-      _u = Twitter::user(id)
-      u = User.new(
-                   :user_id => id,
-                   :screen_name => _u.screen_name,
-                   :name => _u.name,
-                   :description => _u.description
-                   )
-      u.save
+      u = User.new Twitter::user(id)
+      puts u
+      raise StandardError.new "save error user_id:#{id}" unless u.save
       puts "(#{i}/#{ids.size}) add #{u}"
     else
       puts "(#{i}/#{ids.size}) skip #{id}"

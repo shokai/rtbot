@@ -1,10 +1,23 @@
+require 'rubygems'
+require 'data_mapper'
 
 class User
   include DataMapper::Resource
-  property :user_id, Serial
-  property :screen_name, String, :required => true
-  property :name, String, :required => true
-  property :description, String, :required => true
+  property :id, Serial
+  property :user_id, Integer, :required => true, :unique => true
+  property :screen_name, String, :required => true, :length => 0..256
+  property :name, String, :required => true, :length => 0..256
+  property :description, String, :required => true, :length => 0..1024
+
+  def initialize(user)
+    unless user.kind_of? Twitter::User
+      raise ArgumentError.new 'Argument must be instance of Twitter:User'
+    end
+    self.user_id = user.id
+    self.screen_name = user.screen_name
+    self.name = user.name
+    self.description = user.description
+  end
 
   def to_s
     "id:#{user_id} @#{screen_name} (#{name}) - #{description}"
@@ -25,4 +38,14 @@ class User
   def url
     "http://twitter.com/#{screen_name}"
   end
+end
+
+
+if __FILE__ == $0
+  require File.dirname(__FILE__)+'/../bootstrap'
+  Bootstrap.init [:db, :twitter]
+  u = Twitter::user ARGV.empty? ? 'shokai' : ARGV.shift
+  user = User.new u
+  puts user
+  puts user.save ? 'saved!' : 'save failed'
 end
