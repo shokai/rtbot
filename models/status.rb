@@ -34,8 +34,12 @@ class Status
     self.all(:status_id => status_id).first
   end
 
-  def self.find_by_retweet_count(rt_count, limit)
+  def self.find_by_retweet_count(rt_count, limit=10)
     self.all(:retweet_count.gt => rt_count, :limit => limit)
+  end
+
+  def to_s
+    "@#{user.screen_name} #{text} - #{tweeted_at}"
   end
 
   def user
