@@ -7,15 +7,15 @@ class User
   property :user_id, String, :required => true, :unique => true, :length => 1..32
   property :screen_name, String, :required => true, :length => 0..256
   property :name, String, :required => true, :length => 0..256
-  property :description, String, :required => true, :length => 0..1024
+  property :description, String, :default => '', :length => 0..1024
   property :last_checked_at, Time, :default => lambda{ Time.now }
 
   def initialize(user)
     unless user.kind_of? Twitter::User
       raise ArgumentError.new 'Argument must be instance of Twitter:User'
     end
-    self.user_id = user.id
-    self.screen_name = user.screen_name
+    self.user_id = user.id.to_s
+    self.screen_name = user.screen_name.to_s
     self.name = user.name
     self.description = user.description
   end
