@@ -1,27 +1,51 @@
+require 'rubygems'
+require 'data_mapper'
 
 class Status
   include DataMapper::Resource
   property :id, Serial
-  property :checked_at, Time, :default => lambda{ Time.now }
+  property :status_id, String, :required => true, :unique => true, :length => 1..32
+  property :text, String, :default => '', :length => 0..512
+  property :tweeted_at, Time, :required => true
   property :stored_at, Time, :default => lambda{ Time.now }
+  property :last_checked_at, Time, :default => lambda{ Time.now }
   property :user_id, Integer, :required => true
-  property :status_id, Integer, :required => true
   property :retweet_count, Integer, :required => true
-  property :retweeters, String, :default => ''
-  property :text, String, :default => ''
+  property :retweeters, String, :default => '', :length => 0..512
 
   def initialize(stat)
-    unless stat.class == Twitter::Status
-      raise ArgumentError.new('argument must be instance of Twitter::Status')
+    unless stat.kind_of? Twitter::Status
+      raise ArgumentError.new 'Argument must be instance of Twitter::Status'
     end
+    self.status_id = stat.id.to_s
     self.text = stat.text
-    self.retweet_count
+    self.tweeted_at = stat.created_at
+    self.user_id = stat.user.id
+    self.retweet_count = stat.retweet_count
+  end
+
+  def find_by_id(status_id)
+    self.all(:status_id => status_id).first
   end
 
   def user
+    @user ||= User.find_by_id(self.user_id)
   end
 
   def url
+    "http://twitter.com/#{self.user.screen_name}/status/#{status_id}"
   end
 
+end
+
+
+if __FILE__ == $0
+  require File.dirname(__FILE__)+'/../bootstrap'
+  Bootstrap.init [:db, :twitter]
+  tl = Twitter::user_timeline Twitter::friend_ids.ids.choice
+  tl.each do |t|
+    stat = Status.new t
+    p stat
+    puts stat.save ? 'saved!' : 'save failed'
+  end
 end
