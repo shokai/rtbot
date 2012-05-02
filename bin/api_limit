@@ -1,6 +1,5 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/../bootstrap'
-require 'twitter'
 
 Twitter.configure do |config|
   config.consumer_key = @@conf['twitter']['consumer_key']
