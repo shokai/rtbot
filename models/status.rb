@@ -5,11 +5,11 @@ class Status
   include DataMapper::Resource
   property :id, Serial
   property :status_id, String, :required => true, :unique => true, :length => 1..32
-  property :text, String, :default => '', :length => 0..512
+  property :text, String, :default => '', :length => 1..512
   property :tweeted_at, Time, :required => true
   property :stored_at, Time, :default => lambda{ Time.now }
   property :last_checked_at, Time, :default => lambda{ Time.now }
-  property :user_id, Integer, :required => true
+  property :user_id, String, :required => true, :length => 1..32
   property :retweet_count, Integer, :required => true
   property :retweeters, String, :default => '', :length => 0..512
 
@@ -20,7 +20,7 @@ class Status
     self.status_id = stat.id.to_s
     self.text = stat.text
     self.tweeted_at = stat.created_at
-    self.user_id = stat.user.id
+    self.user_id = stat.user.id.to_s
     self.retweet_count = stat.retweet_count
   end
 

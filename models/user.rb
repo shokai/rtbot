@@ -5,7 +5,7 @@ class User
   include DataMapper::Resource
   property :id, Serial
   property :user_id, String, :required => true, :unique => true, :length => 1..32
-  property :screen_name, String, :required => true, :length => 0..256
+  property :screen_name, String, :required => true, :length => 1..256
   property :name, String, :required => true, :length => 0..256
   property :description, String, :default => '', :length => 0..1024
   property :last_checked_at, Time, :default => lambda{ Time.now }
