@@ -4,7 +4,7 @@ require 'data_mapper'
 class User
   include DataMapper::Resource
   property :id, Serial
-  property :user_id, Integer, :required => true, :unique => true
+  property :user_id, String, :required => true, :unique => true, :length => 1..32
   property :screen_name, String, :required => true, :length => 0..256
   property :name, String, :required => true, :length => 0..256
   property :description, String, :required => true, :length => 0..1024
@@ -25,6 +25,8 @@ class User
   end
 
   def self.exists?(user_id)
+    user_id = user_id.to_s if user_id.kind_of? Integer
+    raise ArgumentError 'Argument must be instance of String' unless user_id.kind_of? String
     self.count(:user_id => user_id) > 0
   end
 
@@ -34,6 +36,10 @@ class User
 
   def self.find_by_screen_name(screen_name)
     self.all(:screen_name => screen_name, :limit => 1).first
+  end
+
+  def self.list_to_check(limit = 20)
+      self.all(:order => [:last_checked_at.asc], :limit => limit)
   end
 
   def url

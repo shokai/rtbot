@@ -24,8 +24,18 @@ class Status
     self.retweet_count = stat.retweet_count
   end
 
-  def find_by_id(status_id)
+  def self.exists?(status_id)
+    status_id = status_id.to_s if status_id.kind_of? Integer
+    raise ArgumentError 'Argument must be instance of String' unless status_id.kind_of? String
+    self.count(:status_id => status_id) > 0
+  end
+
+  def self.find_by_id(status_id)
     self.all(:status_id => status_id).first
+  end
+
+  def self.find_by_retweet_count(rt_count, limit)
+    self.all(:retweet_count.gt => rt_count, :limit => limit)
   end
 
   def user
