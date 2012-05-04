@@ -31,7 +31,7 @@ DB
     % mysql -u your_name -p
     mysql> create database favbot;
 
-    % ruby bin/migrate.rb
+    % ruby bin/db_migrate.rb
 
 
 Twitter Auth
