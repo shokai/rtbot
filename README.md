@@ -40,7 +40,7 @@ Twitter Auth
     % ruby bin/auth.rb
 
 
-Ues
+Use
 ---
 
 update user list
