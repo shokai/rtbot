@@ -4,18 +4,18 @@ Bootstrap.init [:db, :twitter]
 
 parser = ArgsParser.parser
 parser.bind(:help, :h, 'show help')
-parser.comment(:limit, 'number of crawling user', 10)
-parser.comment(:paeg, 'page per one user (each page has 20 tweets)', 1)
+parser.comment(:user, 'number of user to check', 10)
+parser.comment(:page, 'page per one user (each page has 20 tweets)', 1)
 first, params = parser.parse ARGV
 
 if parser.has_option(:help)
   puts parser.help
-  puts "e.g.  ruby -Ku #{$0} --limit 10 --page 2"
+  puts "e.g.  ruby -Ku #{$0} --user 10 --page 2"
   exit 1
 end
 
 begin
-  users = User.list_to_check params[:limit].to_i
+  users = User.list_to_check params[:user].to_i
 rescue => e
   STDERR.puts e
   exit 1
