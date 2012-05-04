@@ -1,6 +1,13 @@
-DataMapper+MySQL study
-======================
+RT Bot
+======
 
+* Crawl friends tweets.
+* Check RT Count
+* Notify
+
+
+Works with
+----------
 * Ruby 1.8.7+
 * MySQL 5.1+
 
