@@ -6,6 +6,11 @@ RT Bot
 * Notify
 
 
+Repository
+----------
+https://git.byebyeworld.com/rtbot
+
+
 Works with
 ----------
 * Ruby 1.8.7+
