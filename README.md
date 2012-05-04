@@ -40,6 +40,18 @@ Twitter Auth
     % ruby bin/auth.rb
 
 
+Ues
+---
+
+update user list
+
+    % ruby -Ku bin/crawl_userlist.rb
+
+crawl tweets
+
+    % ruby -Ku bin/crawl_tweets.rb -user 10 -page 2
+
+
 Console
 -------
 
