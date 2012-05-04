@@ -34,7 +34,7 @@ users.each_with_index do |u, i|
           stat = Status.find_by_id t.id
           stat.retweet_count = t.retweet_count
         end
-        p stat
+        puts stat
         stat.save
       end
       u.last_checked_at = Time.now
