@@ -1,17 +1,44 @@
 
-class Bootstrap
-  def self.plugins(category)
+class Plugins
+  private
+  def self.__cache
+    @@cache ||= Hash.new
+  end
+
+  def self.method_missing(name, *args)
+    __load_plugins(name)
+  end
+
+  private
+  def self.__load_plugins(category)
     hash = Hash.new
     Dir.glob(File.dirname(__FILE__)+"/../plugins/#{category}/*.rb").each do |rb|
       name = rb.scan(/([^\/]+)\.rb$/i)[0][0]
       hash[name] = open(rb).read
     end
+    __cache[category] = hash
     hash
+  end
+
+  class Notify
+    attr_reader :retweet_count, :status
+
+    def initialize(retweet_count, status)
+      unless status.kind_of? Status
+        raise ArgumentError.new 'argument must be instance of Status'
+      end
+      @retweet_count = retweet_count
+      @status = status
+    end
+
+    def method_missing(name, *args)
+      instance_eval "status.#{name}(#{args})"
+    end
   end
 end
 
 
 if __FILE__ == $0
   require 'pp'
-  pp Bootstrap.plugins :notify
+  pp Plugins.notify
 end
