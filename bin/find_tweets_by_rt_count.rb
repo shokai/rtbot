@@ -13,7 +13,7 @@ if parser.has_option(:help) or !parser.has_params([:rt_count])
   exit 1
 end
 
-stats = Status.find_by_retweet_count(params[:rt_count], 100)
+stats = Status.find_by_retweet_count(params[:rt_count].to_i, 100)
 
 stats.each_with_index do |s,i|
   i += 1
