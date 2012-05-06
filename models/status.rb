@@ -12,6 +12,7 @@ class Status
   property :user_id, String, :required => true, :length => 1..32
   property :retweet_count, Integer, :required => true
   property :retweeters, String, :default => '', :length => 0..512
+  property :last_tweet_rtcount, Integer, :default => 0
 
   def initialize(stat)
     unless stat.kind_of? Twitter::Status
@@ -36,6 +37,12 @@ class Status
 
   def self.find_by_retweet_count(rt_count, limit=10)
     self.all(:retweet_count.gt => (rt_count-1), :limit => limit)
+  end
+
+  def self.find_by_retweet_count_not_tweeted(rt_count, limit=10)
+    self.all(:retweet_count.gt => (rt_count-1),
+             :last_tweet_rtcount.lt => rt_count,
+             :limit => limit)
   end
 
   def to_s

@@ -27,7 +27,7 @@ Plugins.notify.keys.sort{|a,b|
     next
   end
 
-  stats = Status.find_by_retweet_count(name.to_i, 100)
+  stats = Status.find_by_retweet_count_not_tweeted(name.to_i, 100)
   
   if stats.count < 1
     puts "#{name}RT plugin : no tweets"
@@ -48,7 +48,8 @@ Plugins.notify.keys.sort{|a,b|
         STDERR.puts " => error : #{e}"
       else
         puts " => success"
-        # save db
+        s.last_tweet_rtcount = name.to_i
+        STDERR.puts "db save error.." unless s.save
       end
     end
     sleep 2
