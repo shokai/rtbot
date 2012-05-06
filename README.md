@@ -60,6 +60,11 @@ find tweets by RT count
 
     % ruby -Ku bin/find_tweets_by_rt_count.rb -rt 3
 
+Tweet RT count
+
+    % ruby -Ku bin/tweet_rb_count.rb  # => dry run
+    % ruby -Ku bin/tweet_rb_count.rb --tweet
+
 
 Console
 -------

@@ -4,15 +4,14 @@ Bootstrap.init [:db, :twitter]
 
 parser = ArgsParser.parser
 parser.bind(:help, :h, 'show help')
-parser.bind(:rt_count, :rt, 'retweet count threshold', 1)
 parser.comment(:tweet, 'tweet', false)
 first, params = parser.parse ARGV
 
 if parser.has_option(:help)
   puts parser.help
-  puts "e.g.  ruby -Ku #{$0} -rt 3"
+  puts "e.g.  ruby -Ku #{$0}"
   puts "  => dry run, not tweet."
-  puts "e.g.  ruby -Ku #{$0} -rt 3 --tweet"
+  puts "e.g.  ruby -Ku #{$0} --tweet"
   puts "  => tweet."
   exit 1
 end
