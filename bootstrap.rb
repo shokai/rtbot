@@ -15,6 +15,11 @@ class Bootstrap
       puts "loading #{path}"
       require path
     end
+
+    Dir.glob(File.dirname(__FILE__)+'/helpers/*.rb').each do |rb|
+      puts "loading #{rb}"
+      require rb
+    end
   end
 
   def self.conf_file
