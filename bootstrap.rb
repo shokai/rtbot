@@ -6,7 +6,7 @@ require 'yaml'
 
 class Bootstrap
   def self.default
-    []
+    [:plugin]
   end
   
   def self.init(inits=[])

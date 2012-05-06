@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__)+'/../bootstrap'
-Bootstrap.init [:db, :twitter, :plugin]
+Bootstrap.init [:db, :twitter]
 
 parser = ArgsParser.parser
 parser.bind(:help, :h, 'show help')
