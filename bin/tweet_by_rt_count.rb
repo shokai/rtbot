@@ -38,7 +38,7 @@ Plugins.notify.keys.sort{|a,b|
     i += 1
     puts "#{name}RT plugin (#{i}/#{stats.size})"
     res = Plugins::Notify.new(name.to_i, s).instance_eval Plugins.notify[name]
-    puts "twitter update \"#{res}\""
+    puts "tweet \"#{res}\""
     unless params[:tweet]
       puts " => not tweet (dry run) : please put --tweet switch   e.g. ruby #{$0} --tweet"
     else
