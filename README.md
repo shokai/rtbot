@@ -56,6 +56,10 @@ crawl tweets
 
     % ruby -Ku bin/crawl_tweets.rb -user 10 -page 2
 
+find tweets by RT count
+
+    % ruby -Ku bin/find_tweets_by_rt_count.rb -rt 3
+
 
 Console
 -------
