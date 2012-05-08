@@ -11,13 +11,15 @@ class Plugins
 
   private
   def self.__load_plugins(category)
-    hash = Hash.new
-    Dir.glob(File.dirname(__FILE__)+"/../plugins/#{category}/*.rb").each do |rb|
-      name = rb.scan(/([^\/]+)\.rb$/i)[0][0]
-      hash[name] = open(rb).read
-    end
-    __cache[category] = hash
-    hash
+    __cache[category] ||
+      (
+       hash = Hash.new
+       Dir.glob(File.dirname(__FILE__)+"/../plugins/#{category}/*.rb").each do |rb|
+         name = rb.scan(/([^\/]+)\.rb$/i)[0][0]
+         hash[name] = open(rb).read
+       end
+       __cache[category] = hash
+       )
   end
 
   class Notify
