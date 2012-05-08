@@ -20,10 +20,14 @@ Works with
 Install Dependencies
 --------------------
 
-    % gem install bundler
-    % bundle install
+install rubygems
 
-or
+    % gem install bundler
+    % bundle install  ## use system gems
+    % bundle install --path gems  ## install gems into ./gems
+
+
+update gems
 
     % bundle update
 
