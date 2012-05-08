@@ -16,8 +16,8 @@ class User
     end
     self.user_id = user.id.to_s
     self.screen_name = user.screen_name.to_s
-    self.name = user.name
-    self.description = user.description
+    self.name = Iconv.iconv('UTF-8', 'UTF-8-MAC', user.name)
+    self.description = Iconv.iconv('UTF-8', 'UTF-8-MAC', user.description)
   end
 
   def to_s
