@@ -1,6 +1,6 @@
 db: 
   host: localhost
-  database: favbot
+  database: rtbot
   username: user_name
   password: xxxxxxxxx
   adapter: mysql
