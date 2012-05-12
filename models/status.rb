@@ -19,7 +19,7 @@ class Status
       raise ArgumentError.new 'Argument must be instance of Twitter::Status'
     end
     self.status_id = stat.id.to_s
-    self.text = Iconv.iconv('UTF-8', 'UTF-8-MAC', stat.text)
+    self.text = stat.text
     self.tweeted_at = stat.created_at
     self.user_id = stat.user.id.to_s
     self.retweet_count = stat.retweet_count
