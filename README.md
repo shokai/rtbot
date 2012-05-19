@@ -68,7 +68,7 @@ find tweets by RT count
 
     % ruby -Ku bin/find_tweets_by_rt_count.rb -rt 3
 
-Tweet RT count
+Tweet RT count. see directory "plugins/notify/".
 
     % ruby -Ku bin/tweet_rb_count.rb  # => dry run
     % ruby -Ku bin/tweet_rb_count.rb --tweet
