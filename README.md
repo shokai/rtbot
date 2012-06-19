@@ -24,12 +24,7 @@ install rubygems
 
     % gem install bundler
     % bundle install  ## use system gems
-    % bundle install --path gems  ## install gems into ./gems
-
-
-update gems
-
-    % bundle update
+    % bundle install --path vendor/bundle
 
 
 Setup
