@@ -61,9 +61,9 @@ end
 
 
 if __FILE__ == $0
-  require File.dirname(__FILE__)+'/../bootstrap'
+  require File.expand_path '../bootstrap', File.dirname(__FILE__)
   Bootstrap.init [:db, :twitter]
-  tl = Twitter::user_timeline Twitter::friend_ids.ids.choice
+  tl = Twitter::user_timeline Twitter::friend_ids.ids.sample
   tl.each do |t|
     stat = Status.new t
     p stat
