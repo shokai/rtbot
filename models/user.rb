@@ -49,7 +49,7 @@ end
 
 
 if __FILE__ == $0
-  require File.dirname(__FILE__)+'/../bootstrap'
+  require File.expand_path '../bootstrap', File.dirname(__FILE__)
   Bootstrap.init [:db, :twitter]
   u = Twitter::user ARGV.empty? ? 'shokai' : ARGV.shift
   user = User.new u

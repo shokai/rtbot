@@ -14,7 +14,7 @@ class Plugins
     __cache[category] ||
       (
        hash = Hash.new
-       Dir.glob(File.dirname(__FILE__)+"/../plugins/#{category}/*.rb").each do |rb|
+       Dir.glob(File.expand_path "../plugins/#{category}/*.rb", File.dirname(__FILE__)).each do |rb|
          name = rb.scan(/([^\/]+)\.rb$/i)[0][0]
          hash[name] = open(rb).read
        end
