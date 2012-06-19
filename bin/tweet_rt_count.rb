@@ -2,12 +2,12 @@
 require File.expand_path '../bootstrap', File.dirname(__FILE__)
 Bootstrap.init [:db, :twitter]
 
-parser = ArgsParser.parser
-parser.bind(:help, :h, 'show help')
-parser.comment(:tweet, 'tweet', false)
-first, params = parser.parse ARGV
+parser = ArgsParser.parse ARGV do
+  arg :help, 'show help', :alias => :h
+  arg :tweet, 'tweet', :default => false
+end
 
-if parser.has_option(:help)
+if parser.has_option? :help
   puts parser.help
   puts "e.g.  ruby -Ku #{$0}"
   puts "  => dry run, not tweet."
@@ -38,7 +38,7 @@ Plugins.notify.keys.sort{|a,b|
     puts "#{name}RT plugin (#{i}/#{stats.size})"
     res = Plugins::Notify.new(name.to_i, s).instance_eval Plugins.notify[name]
     puts "tweet \"#{res}\""
-    unless params[:tweet]
+    unless parser[:tweet]
       puts " => not tweet (dry run) : please put --tweet switch   e.g. ruby #{$0} --tweet"
     else
       begin
