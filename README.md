@@ -13,7 +13,7 @@ https://git.byebyeworld.com/rtbot
 
 Works with
 ----------
-* Ruby 1.8.7+
+* Ruby 1.8.7 or 1.9.2
 * MySQL 5.1+
 
 
@@ -24,7 +24,7 @@ install rubygems
 
     % gem install bundler
     % bundle install  ## use system gems
-    % bundle install --path vendor/bundle
+    % bundle install --path vendor/bundle  ## install here
 
 
 Setup
