@@ -7,8 +7,8 @@ class Status
   property :status_id, String, :required => true, :unique => true, :length => 1..32
   property :text, String, :default => '', :length => 1..512
   property :tweeted_at, Time, :required => true
-  property :stored_at, Time, :default => lambda{ Time.now }
-  property :last_checked_at, Time, :default => lambda{ Time.now }
+  property :stored_at, Time, :default => lambda{|r,p| Time.now }
+  property :last_checked_at, Time, :default => lambda{|r,p| Time.now }
   property :user_id, String, :required => true, :length => 1..32
   property :retweet_count, Integer, :required => true
   property :retweeters, String, :default => '', :length => 0..512
