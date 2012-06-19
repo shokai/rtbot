@@ -27,7 +27,16 @@ users.each_with_index do |u, i|
     begin
       puts "(#{i}/#{users.size}) user : @#{u.screen_name} - (#{page}/#{params[:page].to_i}) page"
       tl = Twitter::user_timeline(u.user_id.to_i, {:include_rts => false, :page => page})
-      tl.each do |t|
+    rescue => e
+      STDERR.puts "Error at user : @#{u.screen_name}"
+      STDERR.puts e
+      exit 1 if e.message =~ /rate limit/i
+      sleep 2
+      next
+    end
+
+    tl.each do |t|
+      begin
         unless Status.exists? t.id
           stat = Status.new t
         else
@@ -36,14 +45,14 @@ users.each_with_index do |u, i|
         end
         puts stat
         stat.save
+      rescue => e
+        STDERR.puts "Error at user : @#{u.screen_name}"
+        STDERR.puts e
+        exit 1 if e.message =~ /rate limit/i
       end
-      u.last_checked_at = Time.now
-      u.save
-    rescue => e
-      STDERR.puts "Error at user : @#{u.screen_name}"
-      STDERR.puts e
-      exit 1 if e.message =~ /rate limit/i
     end
+    u.last_checked_at = Time.now
+    u.save
     sleep 2
   end
 end
