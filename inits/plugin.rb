@@ -33,7 +33,7 @@ class Plugins
       @status = status
     end
 
-    def method_missing(name, *args)
+    def method_missing(name, &args)
       instance_eval "status.#{name}(#{args})"
     end
   end
