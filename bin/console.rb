@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__)+'/../bootstrap'
+require File.expand_path '../bootstrap', File.dirname(__FILE__)
 Bootstrap.init [:db, :twitter]
 require 'irb'
 

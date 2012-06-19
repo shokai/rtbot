@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
-require File.dirname(__FILE__)+'/../bootstrap'
+require File.expand_path '../bootstrap', File.dirname(__FILE__)
 Bootstrap.init :twitter
 
 puts Twitter.rate_limit_status.remaining_hits

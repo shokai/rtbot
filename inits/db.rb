@@ -1,6 +1,6 @@
 DataMapper.setup(:default, Bootstrap.conf['db'])
 
-Dir.glob(File.dirname(__FILE__)+'/../models/*.rb').each do |rb|
+Dir.glob(File.expand_path '../models/*.rb', File.dirname(__FILE__)).each do |rb|
   puts "loading #{rb}"
   require rb
 end
