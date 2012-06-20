@@ -6,11 +6,6 @@ RT Bot
 * Notify
 
 
-Repository
-----------
-https://git.byebyeworld.com/rtbot
-
-
 Works with
 ----------
 * Ruby 1.8.7 or 1.9.2
@@ -37,7 +32,7 @@ Config
 DB
 
     % mysql -u your_name -p
-    mysql> create database favbot;
+    mysql> create database rtbot;
 
     % ruby bin/db_migrate.rb
 
