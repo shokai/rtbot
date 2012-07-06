@@ -15,6 +15,10 @@ end
 
 case parser.first
 when 'add'
+  unless exists_on_twitter? parser[:name]
+    puts "@#{parser[:name]} not exists on twitter"
+    exit
+  end
   u = Twitter::user parser[:name]
   if User.exists? u.id
     puts 'user already exists.'
