@@ -15,6 +15,7 @@ end
 
 case parser.first
 when 'add'
+  puts "add #{parser[:name]}"
   u = Twitter::user parser[:name]
   if User.exists? u.id
     puts 'user already exists.'
@@ -24,6 +25,7 @@ when 'add'
   puts user
   puts user.save ? 'saved!' : 'save failed'
 when 'remove'
+  puts "remove #{parser[:name]}"
   user = User.find_by_screen_name parser[:name]
   unless user
     puts "user @#{parser[:name]} not exists."
