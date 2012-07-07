@@ -46,7 +46,11 @@ Twitter Auth
 Use
 ---
 
-update user list
+add user
+
+    % ruby -Ku bin/user.rb add -name USER_NAME
+
+update user list with your followings.
 
     % ruby -Ku bin/crawl_userlist.rb
 
@@ -62,6 +66,10 @@ Tweet RT count. see directory "plugins/notify/".
 
     % ruby -Ku bin/tweet_rt_count.rb  # => dry run
     % ruby -Ku bin/tweet_rt_count.rb --tweet
+
+dump best tweets
+
+    % ruby -Ku bin/dump_best_tweets.rb -min_rt_count 1 -limit 10 -format html -template assets/template.haml -o best.html
 
 
 Console
