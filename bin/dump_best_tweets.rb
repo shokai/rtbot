@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 require File.expand_path '../bootstrap', File.dirname(__FILE__)
-Bootstrap.init [:db, :twitter]
+Bootstrap.init :db
 
 parser = ArgsParser.parse ARGV do
   arg :help, 'show help', :alias => :h
@@ -10,6 +10,7 @@ parser = ArgsParser.parse ARGV do
   arg :output, 'output file', :alias => :o
   arg :format, 'output file format'
   arg :template, 'template file', :alias => :t
+  arg :min_rt_count, 'Min ReTweet count', :default => 1
 end
 
 if parser.has_option? :help or !parser.has_param? :format or (parser[:format] =~ /html/ and !parser.has_param? :template)
@@ -20,9 +21,12 @@ if parser.has_option? :help or !parser.has_param? :format or (parser[:format] =~
 end
 
 range = Range.new Time.at(parser[:start].to_i), Time.at(parser[:end].to_i)
-stats = Status.find_by_tweeted_at(range).all(:order => [:retweet_count.desc], :limit => parser[:limit].to_i)
+stats = Status.find_by_tweeted_at(range).
+  all(:retweet_count.gt => (parser[:min_rt_count].to_i-1),
+      :order => [:retweet_count.desc],
+      :limit => parser[:limit].to_i)
 
-out = 
+out =
   case parser[:format]
   when /json/
     stats.to_json
