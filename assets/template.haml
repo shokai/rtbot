@@ -1,0 +1,16 @@
+- stats.each do |s|
+  %ul#best_tweets
+    %li
+      %span{:class => "best_rt_count, best_rt_count_#{s.retweet_count}"}
+        #{s.retweet_count}RT
+      %span.best_icon
+        %a{:href => s.user.url}
+          %img{:src => "http://twiticon.herokuapp.com/#{s.user.screen_name}"}
+      %span.best_screen_name
+        %a{:href => s.user.url}
+          %span.best_user_name= "@#{s.user.screen_name}"
+      %span.best_test= s.text.markup_html
+      - t = s.tweeted_at
+      
+      %span.best_tweeted_at
+        %a{:href => s.url}= s.tweeted_at.strftime "%Y/%m/%d %H:%M:%S"

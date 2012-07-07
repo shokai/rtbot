@@ -45,6 +45,15 @@ class Status
              :limit => limit)
   end
 
+  def self.find_by_tweeted_at(range)
+    first = range.min
+    first = Time.at first unless first.kind_of? Time
+    end_ = range.max
+    end_ = Time.at end_ unless end_.kind_of? Time
+    self.all(:tweeted_at.gt => first-1,
+             :tweeted_at.lt => end_)
+  end
+
   def to_s
     "@#{user.screen_name} #{text} - #{tweeted_at}"
   end
