@@ -13,6 +13,7 @@ class Status
   property :retweet_count, Integer, :required => true
   property :retweeters, String, :default => '', :length => 0..512
   property :last_tweet_rtcount, Integer, :default => 0
+  property :icon_url, String, :required => true, :length => 0..512
 
   def initialize(stat)
     unless stat.kind_of? Twitter::Status
@@ -23,6 +24,7 @@ class Status
     self.tweeted_at = stat.created_at
     self.user_id = stat.user.id.to_s
     self.retweet_count = stat.retweet_count
+    self.icon_url = stat.user.profile_image_url
   end
 
   def self.exists?(status_id)
