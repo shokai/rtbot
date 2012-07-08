@@ -60,6 +60,14 @@ class Status
     self.all(:order => [:last_checked_at.asc], :limit => 1)[0].last_checked_at
   end
 
+  def self.timeline(opts={})
+    page = opts[:page] || 1
+    per_page = opts[:per_page] || 40
+    self.all(:order => [:tweeted_at.asc],
+             :offset => per_page*(page-1),
+             :limit => per_page)
+  end
+
   def to_s
     "@#{user.screen_name} #{text} - #{tweeted_at}"
   end

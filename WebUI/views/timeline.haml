@@ -1,0 +1,24 @@
+- content_for :title do
+  = @title
+
+%div
+  %a{:href => app_root}
+    top
+%div
+  %ul
+    - @timeline.each do |t|
+      %li.status
+        %span.icon
+          %a{:href => t.url}
+            %img{:src => t.icon_url}
+        %span.screen_name
+          %a{:href => t.url}
+            @#{t.user.screen_name}
+        %span.text= t.text
+        %span.tweeted_at
+          %a{:href => "#{app_root}/status/#{t.status_id}"}= t.tweeted_at.strftime "%Y/%m/%d %H:%M:%S"
+%div#paging
+- if @prev_page
+  %a{:href => @prev_page} page#{@page-1}
+- if @next_page
+  %a{:href => @next_page} page#{@page+1}
