@@ -1,5 +1,5 @@
 
-before Regexp.new "^/((timeline|hot)$|user/[a-zA-Z0-9_]+)" do
+before Regexp.new "^/((timeline|hot|invisible)$|user/[a-zA-Z0-9_]+)" do
   @page = [(params['page'] || 1).to_i, 1].max
   @per_page = [(params['per_page'] || 40).to_i, 1].max
   @next_page = "#{request_url}?page=#{@page+1}&per_page=#{@per_page}"
@@ -18,6 +18,12 @@ get '/hot' do
   @timeline = Status.find_by_tweeted_at(range).
     timeline(:type => :hot, :page => @page, :per_page => @per_page)
   @title = "#{@title} hot"
+  haml :timeline
+end
+
+get '/invisible' do
+  @timeline = Status.all(:visible => false).timeline(:page => @page, :per_page => @per_page)
+  @title = "#{@title} invisible"
   haml :timeline
 end
 
