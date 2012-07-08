@@ -60,12 +60,23 @@ class Status
     self.all(:order => [:last_checked_at.asc], :limit => 1)[0].last_checked_at
   end
 
-  def self.timeline(opts={})
+  def self.timeline(opts={}, opt_query={})
     page = opts[:page] || 1
     per_page = opts[:per_page] || 40
-    self.all(:order => [:tweeted_at.asc],
-             :offset => per_page*(page-1),
-             :limit => per_page)
+    query = {
+      :offset => per_page*(page-1),
+      :limit => per_page
+    }
+    case opts[:type]
+    when :hot
+      query[:order] = [:retweet_count.desc]
+    else
+      query[:order] = [:tweeted_at.asc]
+    end
+    opt_query.each do |k,v|
+      query[k] = v
+    end
+    self.all query
   end
 
   def to_s
