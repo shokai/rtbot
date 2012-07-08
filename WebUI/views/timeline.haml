@@ -11,15 +11,19 @@
         %span.rt
           %span.rt_count= t.retweet_count
           RT
+        - user_page = "#{app_root}/user/#{t.user.screen_name}"
         %span.icon
-          %a{:href => t.url}
+          %a{:href => user_page}
             %img{:src => t.icon_url}
         %span.screen_name
-          %a{:href => t.url}
+          %a{:href => user_page}
             @#{t.user.screen_name}
         %span.text= t.text
         %span.tweeted_at
           %a{:href => "#{app_root}/status/#{t.status_id}"}= t.tweeted_at.strftime "%Y/%m/%d %H:%M:%S"
+        %span.twitter_link
+          %a{:href => t.url}
+            %img{:src => "#{app_root}/img/twitter.png"}
 %div#paging
 - if @prev_page
   %a{:href => @prev_page} page#{@page-1}
