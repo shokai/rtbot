@@ -10,7 +10,7 @@
 %div.box
   %ul
     - @timeline.each do |t|
-      %li.status
+      %li.status{:class => t.visible ? 'show' : 'hide'}
         %span.rt
           %span.rt_count= t.retweet_count
           RT

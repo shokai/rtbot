@@ -26,3 +26,19 @@ body {
   margin : auto;
   display : none;
 }
+
+li {
+  list-style-type : none;
+}
+
+li.status {
+  margin : 0px;
+  padding : 5px;
+  .tweeted_at {
+    font-size : 80%;
+  }
+}
+
+li.status.hide {
+  background-color : #CCC;
+}
