@@ -8,6 +8,9 @@
   %ul
     - @timeline.each do |t|
       %li.status
+        %span.rt
+          %span.rt_count= t.retweet_count
+          RT
         %span.icon
           %a{:href => t.url}
             %img{:src => t.icon_url}
