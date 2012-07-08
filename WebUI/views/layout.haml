@@ -5,7 +5,8 @@
     %title
       != yield_content :title
     %link{:rel => 'stylesheet', :href => "#{app_root}/main.css", :type => 'text/css'}
-    %script{:type => 'text/javascript', :src => "#{app_root}/js/jquery.js"}
+    %script{:type => 'application/javascript', :src => "#{app_root}/js/jquery.js"}
+    %script{:type => 'application/javascript', :src => "#{app_root}/js/util.js"}
     != yield_content :head
   %body
     %div#content
@@ -14,6 +15,7 @@
           != yield_content :title
       %div#main
         != yield
+      %div#alert.box
       %hr
       by
       %a{:href => 'http://shokai.org'}

@@ -1,6 +1,12 @@
 - content_for :title do
   = @title
 
+- content_for :head do
+  :javascript
+    var app_root = "#{app_root}";
+    var status_id = "#{@status.status_id}";
+  %script{:type => 'application/javascript', :src => "#{app_root}/js/status.js"}
+
 %div
   %a{:href => app_root}
     top
@@ -27,3 +33,7 @@
       %a{:href => @status.url}
         %img{:src => "#{app_root}/img/twitter.png"}
   %div#control
+    %ul
+      %li
+        %input{:type => :checkbox, :checked => !@status.visible, :name => :hide}
+        %span このツイートを隠す
