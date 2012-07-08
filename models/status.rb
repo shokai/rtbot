@@ -71,7 +71,7 @@ class Status
     when :hot
       query[:order] = [:retweet_count.desc]
     else
-      query[:order] = [:tweeted_at.asc]
+      query[:order] = [:tweeted_at.desc]
     end
     opt_query.each do |k,v|
       query[k] = v

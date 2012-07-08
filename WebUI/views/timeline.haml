@@ -4,6 +4,9 @@
 %div
   %a{:href => app_root}
     top
+  - if @user
+    &nbsp;|
+    %a{:href => "#{app_root}/user/#{@user.screen_name}/hot"} @#{@user.screen_name}' hot
 %div
   %ul
     - @timeline.each do |t|

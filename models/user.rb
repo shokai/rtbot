@@ -46,6 +46,11 @@ class User
     self.list_to_check(1)[0].last_checked_at
   end
 
+  def timeline(opts={}, opt_query={})
+    opt_query[:user_id] = self.user_id
+    Status.timeline(opts, opt_query)
+  end
+
   def url
     "http://twitter.com/#{screen_name}"
   end
