@@ -58,7 +58,7 @@ class Status
   end
 
   def self.last_checked_at
-    self.all(:order => [:last_checked_at.asc], :limit => 1)[0].last_checked_at
+    self.all(:order => [:last_checked_at.desc], :limit => 1)[0].last_checked_at
   end
 
   def self.timeline(opts={}, opt_query={})

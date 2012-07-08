@@ -43,7 +43,7 @@ class User
   end
 
   def self.last_checked_at
-    self.list_to_check(1)[0].last_checked_at
+    self.all(:order => [:last_checked_at.desc], :limit => 1)[0].last_checked_at
   end
 
   def timeline(opts={}, opt_query={})
