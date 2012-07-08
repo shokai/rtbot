@@ -7,7 +7,7 @@
   - if @user
     &nbsp;|
     %a{:href => "#{app_root}/user/#{@user.screen_name}/hot"} @#{@user.screen_name}' hot
-%div
+%div.box
   %ul
     - @timeline.each do |t|
       %li.status

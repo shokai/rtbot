@@ -24,7 +24,7 @@ end
 get '/user/:screen_name' do
   screen_name = params[:screen_name]
   @user = User.find_by_screen_name(screen_name)
-  halt 404, 'not found' unless @user
+  halt 404, 'user not found' unless @user
   @timeline = @user.timeline(:page => @page, :per_page => @per_page)
   @title = "#{@title} @#{@user.screen_name}"
   haml :timeline
@@ -33,11 +33,19 @@ end
 get '/user/:screen_name/hot' do
   screen_name = params[:screen_name]
   @user = User.find_by_screen_name(screen_name)
-  halt 404, 'not found' unless @user
+  halt 404, 'user not found' unless @user
   range = [Time.now-60*60*24, Time.now]
   @timeline = @user.timeline(
                              {:page => @page, :per_page => @per_page, :type => :hot},
                              {:tweeted_at.gt => range.min-1, :tweeted_at.lt => range.max})
   @title = "#{@title} hot @#{@user.screen_name}"
   haml :timeline
+end
+
+get '/status/:status_id' do
+  @status = Status.find_by_id params[:status_id]
+  @user = @status.user
+  halt 404, 'status not found' unless @status
+  @title = "#{@title} @#{@user.screen_name}"
+  haml :status
 end

@@ -1,0 +1,29 @@
+- content_for :title do
+  = @title
+
+%div
+  %a{:href => app_root}
+    top
+  &nbsp;|
+  %a{:href => "#{app_root}/user/#{@user.screen_name}"} timeline
+  &nbsp;|
+  %a{:href => "#{app_root}/user/#{@user.screen_name}/hot"} @#{@user.screen_name}' hot
+%div.box
+  %div#tweet
+    %span.rt
+      %span.rt_count= @status.retweet_count
+      RT
+    - user_page = "#{app_root}/user/#{@user.screen_name}"
+    %span.icon
+      %a{:href => user_page}
+        %img{:src => @status.icon_url}
+    %span.screen_name
+      %a{:href => user_page}
+        @#{@user.screen_name}
+    %span.text= @status.text
+    %span.tweeted_at
+      %a{:href => "#{app_root}/status/#{@status.status_id}"}= @status.tweeted_at.strftime "%Y/%m/%d %H:%M:%S"
+    %span.twitter_link
+      %a{:href => @status.url}
+        %img{:src => "#{app_root}/img/twitter.png"}
+  %div#control
