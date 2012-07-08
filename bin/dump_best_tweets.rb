@@ -23,6 +23,7 @@ end
 range = Range.new Time.at(parser[:start].to_i), Time.at(parser[:end].to_i)
 stats = Status.find_by_tweeted_at(range).
   all(:retweet_count.gt => (parser[:min_rt_count].to_i-1),
+      :visible => true,
       :order => [:retweet_count.desc],
       :limit => parser[:limit].to_i)
 
