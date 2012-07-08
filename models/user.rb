@@ -39,7 +39,11 @@ class User
   end
 
   def self.list_to_check(limit = 20)
-      self.all(:order => [:last_checked_at.asc], :limit => limit)
+    self.all(:order => [:last_checked_at.asc], :limit => limit)
+  end
+
+  def self.last_checked_at
+    self.list_to_check(1)[0].last_checked_at
   end
 
   def url

@@ -1,0 +1,10 @@
+- content_for :title do
+  = @title
+
+%a{:href => app_root} back
+%div
+  - @stats.each do |category,details|
+    %h2= category
+    %ul
+      - details.each do |k,v|
+        %li= "#{k} : #{v}"

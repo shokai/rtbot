@@ -56,6 +56,10 @@ class Status
              :tweeted_at.lt => end_)
   end
 
+  def self.last_checked_at
+    self.all(:order => [:last_checked_at.asc], :limit => 1)[0].last_checked_at
+  end
+
   def to_s
     "@#{user.screen_name} #{text} - #{tweeted_at}"
   end
