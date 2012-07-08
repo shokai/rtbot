@@ -14,6 +14,7 @@ class Status
   property :retweeters, String, :default => '', :length => 0..512
   property :last_tweet_rtcount, Integer, :default => 0
   property :icon_url, String, :required => true, :length => 0..512
+  property :visible, Boolean, :default => true
 
   def initialize(stat)
     unless stat.kind_of? Twitter::Status
