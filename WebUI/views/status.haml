@@ -11,9 +11,9 @@
   %a{:href => app_root}
     top
   &nbsp;|
-  %a{:href => "#{app_root}/user/#{@user.screen_name}"} timeline
+  %a{:href => "#{app_root}/user/#{@user.screen_name}"} @#{@user.screen_name}'s timeline
   &nbsp;|
-  %a{:href => "#{app_root}/user/#{@user.screen_name}/hot"} @#{@user.screen_name}' hot
+  %a{:href => "#{app_root}/user/#{@user.screen_name}/hot"} @#{@user.screen_name}'s hot
 %div.box
   %div#tweet
     %span.rt
