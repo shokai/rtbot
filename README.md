@@ -48,11 +48,12 @@ Use
 
 add user
 
+    % ruby -Ku bin/user.rb --help
     % ruby -Ku bin/user.rb add -name USER_NAME
 
 update user list with your followings.
 
-    % ruby -Ku bin/crawl_userlist.rb
+    % ruby -Ku bin/crawl_userlist_youfollowing.rb
 
 crawl tweets
 
