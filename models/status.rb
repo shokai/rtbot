@@ -81,7 +81,7 @@ class Status
   end
 
   def to_s
-    "@#{user.screen_name} #{text} - #{tweeted_at}"
+    "[#{retweet_count}RT] @#{user.screen_name} #{text} - #{tweeted_at}"
   end
 
   def user
